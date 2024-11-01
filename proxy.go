@@ -38,6 +38,7 @@ func (proxy *Proxy) getClient(key clientKey) *client {
 		key:       key,
 		sshConfig: proxy.sshConfig, // make copy
 	}
+	pClient.sshConfig.HostKeyAlgorithms = []string{ssh.KeyAlgoED25519, ssh.KeyAlgoRSA}
 	pClient.sshConfig.HostKeyCallback = func(hostname string, remote net.Addr, key ssh.PublicKey) error {
 		if err := proxy.sshConfig.HostKeyCallback(hostname, remote, key); err != nil {
 			return err
